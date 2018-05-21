@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Lean Canvas</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.4.3/pouchdb.min.js"></script>
+
+    <link rel="manifest" href="manifest.json">
+
+    <script>
+    window.addEventListener("load", function() {
+      navigator.serviceWorker
+       .register('/sw.js')
+       .then(function() {  });
+});
+    </script>
+
+    <style>
+
+      @import url('https://fonts.googleapis.com/css?family=Roboto:400');
+
+      body {
+        margin:         0px;
+        font-family: Roboto;
+      }
+
+      section {
+        width:                           100%;
+        display:                         grid;
+        grid-template-columns: 56px auto 56px;
+      }
+
+      * { grid-column: 1 / span 3; outline: 0; }
+
+      button, h2 {
+        height:        56px;
+        background: #1A3623;
+        color:        white;
+        font-size:     17px;
+        border:           0;
+        box-shadow: 4px 0px 8px grey;
+      }
+
+      button:nth-child(1) { grid-column: 1; }
+      h2                  { grid-column: 2; }
+      button:nth-child(3) { grid-column: 3; }
+
+      h1, h2, h3 { font-weight: 400; }
+
+      h1 {
+        margin-bottom:    0;
+        font-size:     24px;
+        text-align:  center;
+      }
+
+      section:last-of-type h1:last-of-type { font-size: 120px; }
+
+      h2 {
+        margin:          0px;
+        line-height:    56px;
+        letter-spacing:  2px;
+        text-align:   center;
+      }
+
+      h3 {
+        font-size:             16px;
+        color:  rgba(26, 54, 35, 1);
+        margin:       10px 20px 2px;
+        padding:            6px 8px;
+      }
+
+      h4 {
+        margin:        0;
+        padding:       0;
+        font-size:  16px;
+      }
+
+      a {
+        margin:                0;
+        padding:  10px 20px 10px;
+        text-decoration:    none;
+        color:             black;
+        overflow:         hidden;
+      }
+
+      a:nth-child(odd) { background: rgba(230,230,230,0.2); }
+
+      p {
+        margin:          4px 0 0;
+        font-size:          12px;
+        max-height:         30px;
+        white-space:      nowrap;
+        overflow:         hidden;
+        text-overflow:  ellipsis;
+      }
+
+      div {
+        border-left:  4px solid rgba(26, 54, 35, 0.7);
+        background:             rgba(230,230,230,0.2);
+        margin:                          0px 20px 8px;
+        padding:                              6px 8px;
+      }
+
+      div:last-of-type { margin-bottom: 25px; }
+
+      textarea, input {
+        display:        block;
+        width:           100%;
+        margin:    10px 0 0 0;
+        padding:  4px 5px 5px;
+        font-family:   Roboto;
+      }
+
+      textarea { height: 200px; }
+
+      label { padding: 20px 20px 0; }
+
+      label:last-of-type { padding: 20px 20px 25px; }
+
+    </style>
+
+
+  </head>
+  <body>
+
+
+    <section id="open_canvas">
+
+      <button id="sometimes_back_button"></button>
+      <h2>OPEN</h2>
+      <button onclick="newCanvas()">＋</button>
+
+    </section>
+
+
+    <section id="view_canvas">
+
+      <button onclick="openCanvas()">🗁</button>
+      <h2>CANVAS</h2>
+      <button onclick="editCanvas()">✎</button>
+
+      <h1 id="canvas_title"></h1>
+
+      <h3>Problem:</h3><div id="problem"></div>
+      <h3>Existing Alternatives:</h3><div id="existing_alternatives"></div>
+      <h3>Solution:</h3><div id="solution"></div>
+      <h3>Key Metrics:</h3><div id="key_metrics"></div>
+      <h3>Unique Value Proposition:</h3><div id="unique_value_proposition"></div>
+      <h3>High-Level Concept:</h3><div id="high_level_concept"></div>
+      <h3>Unfair Advantage:</h3><div id="unfair_advantage"></div>
+      <h3>Channels:</h3><div id="channels"></div>
+      <h3>Customer Segments:</h3><div id="customer_segments"></div>
+      <h3>Early Adopters:</h3><div id="early_adopters"></div>
+      <h3>Cost Structure:</h3><div id="cost_structure"></div>
+      <h3>Revenue Streams:</h3><div id="revenue_streams"></div>
+
+      <button onclick="downloadCanvas()"><u>▼</u></button>
+
+    </section>
+
+
+    <section id="edit_canvas">
+
+      <button onclick="viewCanvas()">🡠</button>
+      <h2>EDIT</h2>
+      <button onclick="saveCanvas()">✓</button>
+
+      <label>Title:<input id="canvas_title" placeholder="Name your canvas"></label>
+
+      <label>Problem:<textarea id="problem" placeholder="List the 1-3 top problems you are to address"></textarea></label>
+      <label>Existing Alternatives:<textarea id="existing_alternatives" placeholder="List how people are solving these problems now"></textarea></label>
+      <label>Solution:<textarea id="solution" placeholder="Outline your solution"></textarea></label>
+      <label>Key Metrics:<textarea id="key_metrics" placeholder="List the numbers that indicate success. What will you measure to know you are doing well?"></textarea></label>
+      <label>Unique Value Proposition:<textarea id="unique_value_proposition" placeholder="Single, clear, compelling message that states why you are different and important"></textarea></label>
+      <label>High-Level Concept:<textarea id="high_level_concept" placeholder="For example an X and Y anology, f.ex JodelSnap = Snapchat but like Jodel"></textarea></label>
+      <label>Unfair Advantage:<textarea id="unfair_advantage" placeholder="What will you do that others can't or won't buy or copy?"></textarea></label>
+      <label>Channels:<textarea id="channels" placeholder="Paths to the customers"></textarea></label>
+      <label>Customer Segments:<textarea id="customer_segments" placeholder="List your target customers"></textarea></label>
+      <label>Early Adopters:<textarea id="early_adopters" placeholder="Your ideal customer, or customers that can help you get a position in the market, or customers that might join a pilot project"></textarea></label>
+      <label>Cost Structure:<textarea id="cost_structure" placeholder="List your fixed and variable costs"></textarea></label>
+      <label>Revenue Streams:<textarea id="revenue_streams" placeholder="List your sources of revenue"></textarea></label>
+
+      <button onclick="deleteCanvas()">🗑</button>
+
+    </section>
+
+
+    <section id="delete_canvas">
+
+      <button onclick="editCanvas()">🡠</button>
+      <h2>DELETE</h2>
+      <button onclick="removeCanvas()">✓</button>
+
+      <h1 class="confirmation">Do you really want to delete this canvas?</h1>
+      <h1>🗑</h1>
+
+    </section>
+
+
+    <script>
+
+      let canvas = {};
+      let db = new PouchDB("leanCanvas");
+
+      //document.querySelectorAll("section").forEach(section => section.style.display = "none");
+
+      function openCanvas() {
+
+        document.querySelectorAll("section").forEach(section => section.style.display = "none");
+        open_canvas.style.display = "grid";
+
+        if (canvas._id) {
+          sometimes_back_button.onclick = viewCanvas;
+          sometimes_back_button.innerText = "🡠";
+        }
+
+        open_canvas.querySelectorAll("a").forEach(a => open_canvas.removeChild(a));
+
+        db.allDocs({include_docs: true}).then(res => {
+          let rows = new Array(...res.rows);
+
+          rows = rows.sort((a, b) => {
+            return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
+          });
+
+          rows.forEach((item) => {
+
+            let canvas_title = item.doc.canvas_title;
+            let solution     =     item.doc.solution;
+            let uuid         =          item.doc._id;
+
+            let a  = document.createElement("a");
+            let h4 = document.createElement("h4");
+            let p  = document.createElement("p");
+
+            h4.innerText = canvas_title;
+            p.innerText  = solution;
+            a.href       = "#";
+            a.onclick    = e => {
+              db.get(uuid).then(doc => {
+                canvas = doc; viewCanvas();
+              }).catch(err => console.log(err));
+            }
+
+            a.appendChild(h4);
+            a.appendChild(p);
+
+            open_canvas.appendChild(a);
+
+          });
+        }).catch(err => console.error(err));
+
+      }
+
+
+      function viewCanvas() {
+
+        document.querySelectorAll("section").forEach(section => section.style.display = "none");
+        view_canvas.style.display = "grid";
+
+        let fields = Array.from(view_canvas.querySelectorAll("div"));
+        fields.unshift(view_canvas.querySelector("h1"));
+
+        fields.forEach(item => { item.innerText = canvas[item.id] });
+
+      }
+
+
+      function newCanvas() {
+
+        db.post({canvas_title: "Untitled Canvas"}).then(res => {
+          db.get(res.id).then(doc => {
+            canvas = doc;
+            editCanvas();
+          })
+        }).catch(err => console.log(err));
+
+      }
+
+
+      function editCanvas() {
+
+        document.querySelectorAll("section").forEach(section => section.style.display = "none");
+        edit_canvas.style.display = "grid";
+
+        let fields = Array.from(edit_canvas.querySelectorAll("textarea"));
+        fields.unshift(document.querySelector("input"));
+
+        fields.forEach(field => { canvas[field.id] ? field.value = canvas[field.id] : field.value = ""; });
+
+      }
+
+
+      function saveCanvas() {
+
+        let fields = Array.from(edit_canvas.querySelectorAll("textarea"));
+        fields.unshift(document.querySelector("input"));
+
+        let doc = {};
+        fields.forEach(field => canvas[field.id] = field.value);
+        db.put(canvas).then(res => {
+          db.get(res.id).then(doc => canvas = doc);
+          viewCanvas();
+        }).catch(err => console.log(err));
+      }
+
+
+      function deleteCanvas() {
+
+        document.querySelectorAll("section").forEach(section => section.style.display = "none");
+        delete_canvas.style.display = "grid";
+
+      }
+
+
+      function removeCanvas() {
+
+        db.remove(canvas).then(res => openCanvas()).catch(err => console.log(err));
+        canvas = {};
+        sometimes_back_button.onclick = undefined;
+        sometimes_back_button.innerText = "";
+
+      }
+
+
+      function downloadCanvas() {
+        console.log("downloadCanvas invokedddddd");
+        let dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
+        let downloadCanvasData = document.createElement('a');
+        downloadCanvasData.href = dataString;
+        downloadCanvasData.download = canvas.canvas_title + ".json";
+        downloadCanvasData.click();
+        downloadCanvasData.remove();
+      }
+
+
+      openCanvas();
+
+    </script>
+
+
+  </body>
+</html>

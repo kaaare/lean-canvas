@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="192"
+   height="192"
+   viewBox="0 0 50.799999 50.800001"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="icon.svg"
+   inkscape:version="0.92.1 r15371"
+   inkscape:export-filename="E:\sw projects\canvas\2\icon48.png"
+   inkscape:export-xdpi="24"
+   inkscape:export-ydpi="24">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-146.82366"
+     inkscape:cy="179.73614"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="false"
+     inkscape:snap-bbox="false"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="false"
+     inkscape:snap-bbox-edge-midpoints="false"
+     inkscape:snap-bbox-midpoints="false"
+     inkscape:snap-page="true"
+     inkscape:snap-text-baseline="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="657"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-246.19998)">
+    <rect
+       style="fill:#dedede;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4489"
+       width="50.799999"
+       height="50.799999"
+       x="0"
+       y="246.19998"
+       ry="3.7797618" />
+    <path
+       style="fill:#1a3623;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 3.7797618,246.19998 h 3.0238085 v 50.8 H 3.7797618 C 1.6857738,296.99998 0,295.31421 0,293.22022 v -43.24048 c 0,-2.09398 1.6857738,-3.77976 3.7797618,-3.77976 z"
+       id="rect4489-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sccssss" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4507"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:39.99995804px;line-height:1.25;font-family:Ebrima;-inkscape-font-specification:'Ebrima, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#1a3623;fill-opacity:1;stroke:none;stroke-width:0.3778609"
+       transform="matrix(0.70021356,0,0,0.70021356,-19.175956,245.89285)"><flowRegion
+         id="flowRegion4509"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:39.99995804px;font-family:Ebrima;-inkscape-font-specification:'Ebrima, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a3623;fill-opacity:1;stroke-width:0.14080751"><rect
+           id="rect4511"
+           width="59.598999"
+           height="47.477177"
+           x="43.941635"
+           y="26.840059"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:39.99995804px;font-family:Ebrima;-inkscape-font-specification:'Ebrima, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a3623;fill-opacity:1;stroke-width:0.3778609" /></flowRegion><flowPara
+         id="flowPara4513"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:39.99995804px;font-family:Ebrima;-inkscape-font-specification:'Ebrima, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.3778609">LC</flowPara></flowRoot>  </g>
+</svg>
