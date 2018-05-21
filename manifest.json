@@ -4,6 +4,7 @@
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
+  "theme_color": "#1A3623",
   "description": "A Simple Editor for Lean Canvases",
   "icons": [{
     "src": "icon48.png",
