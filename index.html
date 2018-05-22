@@ -264,7 +264,9 @@
         let fields = Array.from(view_canvas.querySelectorAll("div"));
         fields.unshift(view_canvas.querySelector("h1"));
 
-        fields.forEach(field => { canvas[field.id] ? field.value = canvas[field.id] : field.value = ""; });
+        console.log(fields);
+
+        fields.forEach(field => { canvas[field.id] ? field.innerText = canvas[field.id] : field.innerText = ""; });
 
       }
 
