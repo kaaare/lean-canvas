@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lean Canvas</title>
+    <meta name="description" content="A basic Lean Canvas application for mobile.">
+    <meta name="theme_color" content="#1A3623">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.4.3/pouchdb.min.js"></script>
 
@@ -269,8 +271,6 @@
 
         let fields = Array.from(view_canvas.querySelectorAll("div"));
         fields.unshift(view_canvas.querySelector("h1"));
-
-        console.log(fields);
 
         fields.forEach(field => { canvas[field.id] ? field.innerText = canvas[field.id] : field.innerText = ""; });
 
