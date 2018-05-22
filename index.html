@@ -40,7 +40,7 @@
         color:        white;
         font-size:     17px;
         border:           0;
-        box-shadow: 4px 0px 8px grey;
+        ❰-shadow: 4px 0px 8px grey;
       }
 
       button:nth-child(1) { grid-column: 1; }
@@ -106,12 +106,12 @@
       div:last-of-type { margin-bottom: 25px; }
 
       textarea, input {
-        display:        block;
-        width:           100%;
-        margin:    10px 0 0 0;
-        padding:  4px 5px 5px;
+        display:         block;
+        width:            100%;
+        margin:     10px 0 0 0;
+        padding:   4px 5px 5px;
         box-sizing: border-box;
-        font-family:   Roboto;
+        font-family:    Roboto;
       }
 
       textarea { height: 200px; }
@@ -237,7 +237,7 @@
             let p  = document.createElement("p");
 
             h4.innerText = canvas_title;
-            p.innerText  = solution;
+            p.innerText  = solution ? solution : "";
             a.href       = "#";
             a.onclick    = e => {
               db.get(uuid).then(doc => {
@@ -264,7 +264,7 @@
         let fields = Array.from(view_canvas.querySelectorAll("div"));
         fields.unshift(view_canvas.querySelector("h1"));
 
-        fields.forEach(item => { item.innerText = canvas[item.id] });
+        fields.forEach(field => { canvas[field.id] ? field.value = canvas[field.id] : field.value = ""; });
 
       }
 
