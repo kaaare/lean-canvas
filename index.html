@@ -110,6 +110,7 @@
         width:           100%;
         margin:    10px 0 0 0;
         padding:  4px 5px 5px;
+        box-sizing: border-box;
         font-family:   Roboto;
       }
 
@@ -163,7 +164,7 @@
 
     <section id="edit_canvas">
 
-      <button onclick="viewCanvas()">🡠</button>
+      <button onclick="viewCanvas()">❰</button>
       <h2>EDIT</h2>
       <button onclick="saveCanvas()">✓</button>
 
@@ -182,19 +183,19 @@
       <label>Cost Structure:<textarea id="cost_structure" placeholder="List your fixed and variable costs"></textarea></label>
       <label>Revenue Streams:<textarea id="revenue_streams" placeholder="List your sources of revenue"></textarea></label>
 
-      <button onclick="deleteCanvas()">🗑</button>
+      <button onclick="deleteCanvas()">♲</button>
 
     </section>
 
 
     <section id="delete_canvas">
 
-      <button onclick="editCanvas()">🡠</button>
+      <button onclick="editCanvas()">❰</button>
       <h2>DELETE</h2>
       <button onclick="removeCanvas()">✓</button>
 
       <h1 class="confirmation">Do you really want to delete this canvas?</h1>
-      <h1>🗑</h1>
+      <h1>♲</h1>
 
     </section>
 
@@ -213,7 +214,7 @@
 
         if (canvas._id) {
           sometimes_back_button.onclick = viewCanvas;
-          sometimes_back_button.innerText = "🡠";
+          sometimes_back_button.innerText = "❰";
         }
 
         open_canvas.querySelectorAll("a").forEach(a => open_canvas.removeChild(a));
@@ -241,7 +242,7 @@
             a.onclick    = e => {
               db.get(uuid).then(doc => {
                 canvas = doc; viewCanvas();
-              }).catch(err => console.log(err));
+              }).catch(console.error);
             }
 
             a.appendChild(h4);
@@ -250,7 +251,7 @@
             open_canvas.appendChild(a);
 
           });
-        }).catch(err => console.error(err));
+        }).catch(console.error);
 
       }
 
@@ -275,7 +276,7 @@
             canvas = doc;
             editCanvas();
           })
-        }).catch(err => console.log(err));
+        }).catch(console.error);
 
       }
 
@@ -303,7 +304,7 @@
         db.put(canvas).then(res => {
           db.get(res.id).then(doc => canvas = doc);
           viewCanvas();
-        }).catch(err => console.log(err));
+        }).catch(console.error);
       }
 
 
@@ -317,7 +318,7 @@
 
       function removeCanvas() {
 
-        db.remove(canvas).then(res => openCanvas()).catch(err => console.log(err));
+        db.remove(canvas).then(res => openCanvas()).catch(console.error);
         canvas = {};
         sometimes_back_button.onclick = undefined;
         sometimes_back_button.innerText = "";
