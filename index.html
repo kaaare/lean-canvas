@@ -8,13 +8,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.4.3/pouchdb.min.js"></script>
 
     <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script>
-    window.addEventListener("load", function() {
-      navigator.serviceWorker
-       .register('/sw.js')
-       .then(function() {  });
-});
+      window.addEventListener("load", function() {
+        navigator.serviceWorker
+         .register('/sw.js')
+         .then(function() {  });
+      });
     </script>
 
     <style>
@@ -135,16 +136,16 @@
 
       <button id="sometimes_back_button"></button>
       <h2>OPEN</h2>
-      <button onclick="newCanvas()">＋</button>
+      <button onclick="newCanvas()"><i class="material-icons">note_add</i></button>
 
     </section>
 
 
     <section id="view_canvas">
 
-      <button onclick="openCanvas()">🗁</button>
+      <button onclick="openCanvas()"><i class="material-icons">folder_open</i></button>
       <h2>CANVAS</h2>
-      <button onclick="editCanvas()">✎</button>
+      <button onclick="editCanvas()"><i class="material-icons">edit</i></button>
 
       <h1 id="canvas_title"></h1>
 
@@ -161,16 +162,16 @@
       <h3>Cost Structure:</h3><div id="cost_structure"></div>
       <h3>Revenue Streams:</h3><div id="revenue_streams"></div>
 
-      <button onclick="downloadCanvas()"><u>▼</u></button>
+      <button onclick="downloadCanvas()"><i class="material-icons">get_app</i></button>
 
     </section>
 
 
     <section id="edit_canvas">
 
-      <button onclick="viewCanvas()">❰</button>
+      <button onclick="viewCanvas()"><i class="material-icons">arrow_back</i></button>
       <h2>EDIT</h2>
-      <button onclick="saveCanvas()">✓</button>
+      <button onclick="saveCanvas()"><i class='material-icons'>check</i></button>
 
       <label>Title:<input id="canvas_title" placeholder="Name your canvas"></label>
 
@@ -187,19 +188,19 @@
       <label>Cost Structure:<textarea id="cost_structure" placeholder="List your fixed and variable costs"></textarea></label>
       <label>Revenue Streams:<textarea id="revenue_streams" placeholder="List your sources of revenue"></textarea></label>
 
-      <button onclick="deleteCanvas()">♲</button>
+      <button onclick="deleteCanvas()"><i class="material-icons">delete_forever</i></button>
 
     </section>
 
 
     <section id="delete_canvas">
 
-      <button onclick="editCanvas()">❰</button>
+      <button onclick="editCanvas()"><i class="material-icons">arrow_back</i></button>
       <h2>DELETE</h2>
-      <button onclick="removeCanvas()">✓</button>
+      <button onclick="removeCanvas()"><i class='material-icons'>check</i></button>
 
       <h1 class="confirmation">Do you really want to delete this canvas?</h1>
-      <h1>♲</h1>
+      <h1><i class="material-icons">delete_forever</i></h1>
 
     </section>
 
@@ -218,7 +219,8 @@
 
         if (canvas._id) {
           sometimes_back_button.onclick = viewCanvas;
-          sometimes_back_button.innerText = "❰";
+
+          sometimes_back_button.innerHTML = "<i class='material-icons'>arrow_back</i>";
         }
 
         open_canvas.querySelectorAll("a").forEach(a => open_canvas.removeChild(a));
