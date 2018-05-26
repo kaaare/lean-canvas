@@ -227,21 +227,23 @@
         open_canvas.querySelectorAll("a").forEach(a => open_canvas.removeChild(a));
 
         db.allDocs({include_docs: true}).then(res => {
-          let rows = new Array(...res.rows);
-
-          rows = rows.sort((a, b) => {
+          const rows = new Array(...res.rows).sort((a, b) => {
             return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
           });
 
+          /*rows = rows.sort((a, b) => {
+            return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
+          });*/
+
           rows.forEach((item) => {
 
-            let canvas_title = item.doc.canvas_title;
-            let solution     =     item.doc.solution;
-            let uuid         =          item.doc._id;
+            const canvas_title = item.doc.canvas_title;
+            const solution     =     item.doc.solution;
+            const uuid         =          item.doc._id;
 
-            let a  = document.createElement("a");
-            let h4 = document.createElement("h4");
-            let p  = document.createElement("p");
+            const a  = document.createElement("a");
+            const h4 = document.createElement("h4");
+            const p  = document.createElement("p");
 
             h4.innerText = canvas_title;
             p.innerText  = solution ? solution : "";
@@ -268,7 +270,7 @@
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
         view_canvas.style.display = "grid";
 
-        let fields = Array.from(view_canvas.querySelectorAll("div"));
+        const fields = Array.from(view_canvas.querySelectorAll("div"));
         fields.unshift(view_canvas.querySelector("h1"));
 
         fields.forEach(field => { canvas[field.id] ? field.innerText = canvas[field.id] : field.innerText = ""; });
@@ -293,7 +295,7 @@
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
         edit_canvas.style.display = "grid";
 
-        let fields = Array.from(edit_canvas.querySelectorAll("textarea"));
+        const fields = Array.from(edit_canvas.querySelectorAll("textarea"));
         fields.unshift(document.querySelector("input"));
 
         fields.forEach(field => { canvas[field.id] ? field.value = canvas[field.id] : field.value = ""; });
@@ -303,7 +305,7 @@
 
       function saveCanvas() {
 
-        let fields = Array.from(edit_canvas.querySelectorAll("textarea"));
+        const fields = Array.from(edit_canvas.querySelectorAll("textarea"));
         fields.unshift(document.querySelector("input"));
 
         let doc = {};
@@ -336,7 +338,7 @@
       function downloadCanvas() {
         console.log("downloadCanvas invokedddddd");
         let dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
-        let downloadCanvasData = document.createElement('a');
+        const downloadCanvasData = document.createElement('a');
         downloadCanvasData.href = dataString;
         downloadCanvasData.download = canvas.canvas_title + ".json";
         downloadCanvasData.click();
