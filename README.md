@@ -15,8 +15,8 @@ PouchDB is used to store the canvases as individual objects indexed by a UUID ge
 
 HTML, CSS and Javascript is kept in one file with the exception of the service worker that is requried to be loaded as a separate file, and the dependencies PouchDB, Roboto and Material-icons.
 
-The canvas documents stored in the database are given key names that correspond to the ID's of html elements in the view and the edit dialgoue of the app. This allows reading and writing to the database doc with a loop that traverses the elements and fills or reads the corresponding fields from the database doc.
+The canvas documents stored in the database are given key names that correspond to the ID's of html elements in the view and the edit dialgoue of the app. This allows writing to the database doc with a loop that traverses the html elements and fills the correspondingly named fields in the database doc with their content (and vice versa for reading).
 
 The database doc currently worked on is stored in its entirety as a global (named "canvas") giving access to its fields, its _id and its _rev throughout the applications dialogues. This global object then contains the complete state of the app.
 
-One rule for valid html5 is broken where multiple elements (exactly two) contain the same ID. These elements are never visible or active on the page at the same time and the browsers showed no problems handling this. The simplicity that this design decision awarded the javascript code, made me choose to keep it this way.
+One rule for valid html5 is broken where multiple elements (exactly two of each) contain the same ID. One set of elements in the "view" dialogue, and one set of elements in the "edit" dialogue. These elements are never visible or active on the page at the same time and the browsers showed no problems handling this. The simplicity that this design decision awarded the javascript code, made me choose to keep it this way.
