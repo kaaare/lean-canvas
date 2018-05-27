@@ -131,10 +131,11 @@
   </head>
   <body>
 
-
+    <!-- Section tags are used for dialogues -->
     <section id="open_canvas">
 
       <button id="sometimes_back_button"></button>
+      <!-- only visible if a canvas is open (global variable "canvas" contains an _id) -->
       <h2>OPEN</h2>
       <button onclick="newCanvas()"><i class="material-icons">note_add</i></button>
 
@@ -147,6 +148,7 @@
       <h2>CANVAS</h2>
       <button onclick="editCanvas()"><i class="material-icons">edit</i></button>
 
+      <!-- element IDs correspond to fields / keys in the global "canvas" object -->
       <h1 id="canvas_title"></h1>
 
       <h3>Problem:</h3><div id="problem"></div>
@@ -173,6 +175,7 @@
       <h2>EDIT</h2>
       <button onclick="saveCanvas()"><i class='material-icons'>save</i></button>
 
+      <!-- element IDs correspond to fields / keys in the global "canvas" object -->
       <label>Title:<input id="canvas_title" placeholder="Name your canvas"></label>
 
       <label>Problem:<textarea id="problem" placeholder="List the 1-3 top problems you are to address"></textarea></label>
@@ -210,24 +213,34 @@
       let canvas = {};
       let db = new PouchDB("leanCanvas");
 
+      // The following functions are what populates and shows dialogues. All functions except
+      // newCanvas(), removeCanvas() and downloadCanvas()) does this.
+      // Function names are the camel-case equivalent of their dialogue's IDs
+      // (f.ex: function openCanvas() is what populates and shows <section id="open_canvas">)
+
       function openCanvas() {
 
+        // Hide all dialogues.
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
+        // Render this one visible.
         open_canvas.style.display = "grid";
 
         if (canvas._id) {
+          // A canvas has been opened and can be returned to, so add a back button to the open dialogue.
           sometimes_back_button.onclick = viewCanvas;
-
           sometimes_back_button.innerHTML = "<i class='material-icons'>arrow_back</i>";
         }
 
+        // Clear any previous canvas list that might be incorrect after adding or editing canvases.
         open_canvas.querySelectorAll("a").forEach(a => open_canvas.removeChild(a));
 
+        // Generate an array called "rows" containing an alphabetically sorted list of all canvases in the database.
         db.allDocs({include_docs: true}).then(res => {
           const rows = new Array(...res.rows).sort((a, b) => {
             return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
           });
 
+        // Populate dialogue
           rows.forEach((item) => {
 
             const canvas_title = item.doc.canvas_title;
@@ -263,9 +276,13 @@
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
         view_canvas.style.display = "grid";
 
+        // Create a conveniently named iterable array from all field elements.
         const fields = Array.from(view_canvas.querySelectorAll("div"));
+        // Separately add the title field to the same array despite it having a different tag name.
         fields.unshift(view_canvas.querySelector("h1"));
 
+        // Populate the html elements with the correspondingly named keys in the "canvas" object, if they exist.
+        // Test for existence first to avoid adding "undefined" to the html as the nonexisting item is stringified.
         fields.forEach(field => { canvas[field.id] ? field.innerText = canvas[field.id] : field.innerText = ""; });
 
       }
@@ -273,9 +290,13 @@
 
       function newCanvas() {
 
+        // Post a new canvas to the database to generate a UUID,
         db.post({canvas_title: "Untitled Canvas"}).then(res => {
+          // retrieve it,
           db.get(res.id).then(doc => {
+            // and make it the current app state by assigning it to the global "canvas" object.
             canvas = doc;
+            // Populate and show the edit dialogue.
             editCanvas();
           })
         }).catch(console.error);
@@ -285,6 +306,8 @@
 
       function editCanvas() {
 
+        // Operates by logic identical to viewCanvas() above, but on different html elements.
+        // See viewCanvas() for comments.
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
         edit_canvas.style.display = "grid";
 
@@ -301,14 +324,17 @@
         const fields = Array.from(edit_canvas.querySelectorAll("textarea"));
         fields.unshift(document.querySelector("input"));
 
+        // Populate fields array with values from form elements.
         fields.forEach(field => canvas[field.id] = field.value);
+        // Store canvas in database.
         db.put(canvas).then(res => {
           db.get(res.id).then(doc => canvas = doc);
+          // render view_canvas dialogue.
           viewCanvas();
         }).catch(console.error);
       }
 
-
+      // Note: deleteCanvas() shows the dialogue, removeCanvas() below actually removes the canvas from the database.
       function deleteCanvas() {
 
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
@@ -319,8 +345,11 @@
 
       function removeCanvas() {
 
+        // Remove current canvas from database, then show the "open" dialogue.
         db.remove(canvas).then(res => openCanvas()).catch(console.error);
+        // Reset global state to nothing.
         canvas = {};
+        // Remove the back-arrow button from the "open" dialogue now that there is no canvas to return to.
         sometimes_back_button.onclick = undefined;
         sometimes_back_button.innerText = "";
 
@@ -329,6 +358,7 @@
 
       function downloadCanvas() {
 
+        // Export canvas doc to JSON and prompt a download with the canvas title as the file name.
         let dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
         const downloadCanvasData = document.createElement('a');
         downloadCanvasData.href = dataString;
@@ -338,7 +368,7 @@
 
       }
 
-
+      // When first loading the html file in the browser, show the "open" dialogue.
       openCanvas();
 
     </script>
