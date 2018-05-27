@@ -213,10 +213,10 @@
       let canvas = {};
       let db = new PouchDB("leanCanvas");
 
-      // The following functions are what populates and shows dialogues. All functions except
-      // newCanvas(), removeCanvas() and downloadCanvas()) does this.
-      // Function names are the camel-case equivalent of their dialogue's IDs
-      // (f.ex: function openCanvas() is what populates and shows <section id="open_canvas">)
+      // The following functions populates and displays dialogues. All functions except
+      // newCanvas(), removeCanvas() and downloadCanvas()) do this.
+      // Function names are the camel-case equivalent of their dialogue's IDs in the html.
+      // (f.ex: function openCanvas() populates and displays <section id="open_canvas">)
 
       function openCanvas() {
 
@@ -224,6 +224,7 @@
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
         // Render this one visible.
         open_canvas.style.display = "grid";
+        // (This exact logic is applied in all the following functions that display dialogues.)
 
         if (canvas._id) {
           // A canvas has been opened and can be returned to, so add a back button to the open dialogue.
@@ -240,7 +241,7 @@
             return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
           });
 
-        // Populate dialogue
+        // Populate dialogue with a list of canvases that can be opened by clicking on them.
           rows.forEach((item) => {
 
             const canvas_title = item.doc.canvas_title;
@@ -278,7 +279,7 @@
 
         // Create a conveniently named iterable array from all field elements.
         const fields = Array.from(view_canvas.querySelectorAll("div"));
-        // Separately add the title field to the same array despite it having a different tag name.
+        // Separately add the title field to the array, since it has a different tag name.
         fields.unshift(view_canvas.querySelector("h1"));
 
         // Populate the html elements with the correspondingly named keys in the "canvas" object, if they exist.
@@ -358,8 +359,8 @@
 
       function downloadCanvas() {
 
-        // Export canvas doc to JSON and prompt a download with the canvas title as the file name.
-        let dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
+        // Export canvas doc to JSON and prompt the user to download, with the canvas title as the file name.
+        const dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
         const downloadCanvasData = document.createElement('a');
         downloadCanvasData.href = dataString;
         downloadCanvasData.download = canvas.canvas_title + ".json";
