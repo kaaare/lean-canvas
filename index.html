@@ -16,8 +16,7 @@
     <script>
       window.addEventListener("load", function() {
         navigator.serviceWorker
-         .register('/sw.js')
-         .then(function() {  });
+         .register('/sw.js');
       });
     </script>
 
@@ -37,11 +36,11 @@
       * { grid-column: 1 / span 3; outline: 0; }
 
       button, h2 {
-        height:        56px;
-        background: #1A3623;
-        color:        white;
-        font-size:     17px;
-        border:           0;
+        height:                 56px;
+        background:          #1A3623;
+        color:                 white;
+        font-size:              17px;
+        border:                    0;
         box-shadow: 4px 0px 8px grey;
       }
 
@@ -99,7 +98,7 @@
         white-space:      nowrap;
         overflow:         hidden;
         text-overflow:  ellipsis;
-        font-style: italic;
+        font-style:       italic;
       }
 
       div {
@@ -211,8 +210,6 @@
       let canvas = {};
       let db = new PouchDB("leanCanvas");
 
-      //document.querySelectorAll("section").forEach(section => section.style.display = "none");
-
       function openCanvas() {
 
         document.querySelectorAll("section").forEach(section => section.style.display = "none");
@@ -230,10 +227,6 @@
           const rows = new Array(...res.rows).sort((a, b) => {
             return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
           });
-
-          /*rows = rows.sort((a, b) => {
-            return String(a.doc.canvas_title).toLowerCase().localeCompare(String(b.doc.canvas_title).toLowerCase());
-          });*/
 
           rows.forEach((item) => {
 
@@ -308,7 +301,6 @@
         const fields = Array.from(edit_canvas.querySelectorAll("textarea"));
         fields.unshift(document.querySelector("input"));
 
-        let doc = {};
         fields.forEach(field => canvas[field.id] = field.value);
         db.put(canvas).then(res => {
           db.get(res.id).then(doc => canvas = doc);
@@ -336,13 +328,14 @@
 
 
       function downloadCanvas() {
-        console.log("downloadCanvas invokedddddd");
+
         let dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
         const downloadCanvasData = document.createElement('a');
         downloadCanvasData.href = dataString;
         downloadCanvasData.download = canvas.canvas_title + ".json";
         downloadCanvasData.click();
         downloadCanvasData.remove();
+
       }
 
 
