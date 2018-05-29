@@ -216,7 +216,60 @@
     <script>
 
       let canvas = {};
-      let db = new PouchDB("leanCanvas");
+      const db = new PouchDB("leanCanvas");
+
+      // if database is new, it is te first time the app is ran, so we add some
+      // default / demonstratory database items.
+      db.info().then(details => {
+        if (details.doc_count == 0 && details.update_seq == 0) {
+          // Database is new, store some docs.
+          db.post({
+              "canvas_title":             "Default Explanatory Test Canvas",
+              "problem":                  "When opening this app, the empty fields do not fully demonstrate what the app is all about. Especially the first screen (the \"open\" dialogue) is confusing for at least a few milliseconds before noticing the icon in the upper left corner.",
+              "existing_alternatives":    "Letting the user explore the UI in a trial and error fashion to see what ends up where.",
+              "solution":                 "A default canvas that is always there, ready to be listed in the open dialogue, viewed, edited, and even deleted. This also lets us inform the user that the button for downloading the canvas is found at the bottom of this view dialogue, and the button for deleting canvases is found at the bottom of the edit dialogue (click pencil icon in app bar).",
+              "key_metrics":              "",
+              "unique_value_proposition": "Immediate, easy application demonstration requiring minimal interaction from the user.",
+              "high_level_concept":       "Dummy data for app demo.",
+              "unfair_advantage":         "",
+              "channels":                 "The application's initial screen.",
+              "customer_segments":        "Random people browsing GitHub, potential future employers, or anyone curious.",
+              "early_adopters":           "",
+              "cost_structure":           "",
+              "revenue_streams":          ""
+            }).then(res => db.post({
+              "canvas_title":             "Example Canvas: Field Trips to Local Farm",
+              "problem":                  "Happyville Elementary struggles to copmply with federal guidelines on how much their pupils should know about yoghurt.",
+              "existing_alternatives":    "",
+              "solution":                 "Animal Farm Inc can provide guided tours of our farm and factory, including transportation to and from, and plenty of yoghurt.",
+              "key_metrics":              "Number of participants, general score given by accompanying teachers, amount of yoghurt consumed by pupils.",
+              "unique_value_proposition": "Entertaining and educational tours by experts in the field of yoghurt. Easy compliance with federal guidlines.",
+              "high_level_concept":       "Edible education.",
+              "unfair_advantage":         "Only farm within the school distict to produce yoghurt.",
+              "channels":                 "Direct advertisement to the school principal and local politicians.",
+              "customer_segments":        "Teachers, school administrators, and pupils.",
+              "early_adopters":           "Happyville Elementary",
+              "cost_structure":           "Fixed transportation cost, hourly rate for guide, approx 75 hour salaries for initial groundwork.",
+              "revenue_streams":          "A charge can be gathered on a group and tour basis, adjusted based on the group size and amount of accompanying teachers."
+            }).then(res => db.post({
+              "canvas_title":             "Example Canvas: Freckle (from SlideShare)",
+              "problem":                  "Tracking time precisely without effort.\n\nEasily invoice clients with good report on performed work.",
+              "existing_alternatives":    "Lots and loads.",
+              "solution":                 "Time tracking with superb UX, no unnecessary fuss.",
+              "key_metrics":              "Hours tracked.\n\nRev. per user.",
+              "unique_value_proposition": "Time tracking software that you'll actually use.",
+              "high_level_concept":       "Timesheets on the go.",
+              "unfair_advantage":         "Existing audience: Mailinglists, Twitter, etc.",
+              "channels":                 "- Word of mouth\n- Cross-sales\n- Freebies\n- Existing audience",
+              "customer_segments":        "Freelancers.\n\nAgencies.",
+              "early_adopters":           "Happyville Carpenters Association",
+              "cost_structure":           "Software development, marketing/copyrighting, CC fees, Hosting.",
+              "revenue_streams":          "12-50 USD / month depending on company size."
+            }))).catch(console.error);
+        }
+        else alert ('database exists');
+      }).catch(console.error);
+
 
       // The following functions populates and displays dialogues. All functions except
       // newCanvas(), removeCanvas() and downloadCanvas()) do this.
