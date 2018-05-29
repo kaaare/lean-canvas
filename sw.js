@@ -1,6 +1,6 @@
 self.addEventListener('install', event => {
   event.waitUntil(
-    // Opening a named cache autovivifies the actual cache.
+    // Opening a non-existient named cache creates the actual cache.
     caches.open('leanCanvas').then(cache => {
       return cache.addAll([
         ".",
