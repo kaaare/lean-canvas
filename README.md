@@ -23,10 +23,10 @@ The key names (object properties) of the documents stored in the database corres
 
 The database doc currently worked on is stored in its entirety as a global (named "canvas") giving access to its fields, its \_id and its \_rev throughout the applications dialogues. This global object then contains the complete state of the app.
 
-<section> elements define the dialogues, each covering the entire screen when visible.
+\<section\> elements define the dialogues, each covering the entire screen when visible.
 
 One rule for valid html5 is broken where multiple elements (exactly two of each) have the same ID. One set of elements in the "view" dialogue has the same IDs as one set of elements in the "edit" dialogue. These elements are never visible or active on the page at the same time and browsers show no problems handling it. The simplicity that this design decision awarded the JavaScript code, made me choose to keep it this way for now.
 
 Demo
 ====
-The app can be accessed at http://kaaare.github.io/lean-canvas. Note that the app is designed for mobile devices.
+The app can be accessed at http://kaaare.github.io/lean-canvas. Note that the app is designed primarily for mobile devices.
