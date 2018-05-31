@@ -224,7 +224,8 @@
       db.info().then(details => {
         if (details.doc_count == 0 && details.update_seq == 0) {
           // Database is new, store some docs.
-          db.post({
+          Promise.all([
+            db.post({
               "canvas_title":             "Default Explanatory Test Canvas",
               "problem":                  "When opening this app, the empty fields do not fully demonstrate what the app is all about. Especially the first screen (the \"open\" dialogue) is confusing for at least a few milliseconds before noticing the icon in the upper left corner.",
               "existing_alternatives":    "Letting the user explore the UI in a trial and error fashion to see what ends up where.",
@@ -238,7 +239,8 @@
               "early_adopters":           "",
               "cost_structure":           "",
               "revenue_streams":          ""
-            }).then(res => db.post({
+            }),
+            db.post({
               "canvas_title":             "Example Canvas: Field Trips to Local Farm",
               "problem":                  "Happyville Elementary struggles to copmply with federal guidelines on how much their pupils should know about yoghurt.",
               "existing_alternatives":    "",
@@ -252,7 +254,8 @@
               "early_adopters":           "Happyville Elementary",
               "cost_structure":           "Fixed transportation cost, hourly rate for guide, approx 75 hour salaries for initial groundwork.",
               "revenue_streams":          "A charge can be gathered on a group and tour basis, adjusted based on the group size and amount of accompanying teachers."
-            }).then(res => db.post({
+            }),
+            db.post({
               "canvas_title":             "Example Canvas: Freckle (from SlideShare)",
               "problem":                  "Tracking time precisely without effort.\n\nEasily invoice clients with good report on performed work.",
               "existing_alternatives":    "Lots and loads.",
@@ -266,7 +269,8 @@
               "early_adopters":           "Happyville Carpenters Association",
               "cost_structure":           "Software development, marketing/copyrighting, CC fees, Hosting.",
               "revenue_streams":          "12-50 USD / month depending on company size."
-            }))).catch(console.error);
+            })
+          ]).then(res => openCanvas()).catch(console.error); // Necessary, or will it bubble despite the if?
         }
       }).catch(console.error);
 
